@@ -1,0 +1,178 @@
+{
+  "customers": [
+    {
+      "firstName": "Alice",
+      "lastName": "Smith",
+      "email": "alice@example.com",
+      "phone": "111-222-3333",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "Bob",
+      "lastName": "Johnson",
+      "email": "bob@example.com",
+      "phone": "444-555-6666",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "Charlie",
+      "lastName": "Williams",
+      "email": "charlie@example.com",
+      "phone": "777-888-9999",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "Diana",
+      "lastName": "Jones",
+      "email": "diana@example.com",
+      "phone": "000-111-2222",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "Edward",
+      "lastName": "Brown",
+      "email": "edward@example.com",
+      "phone": "333-444-5555",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "Fiona",
+      "lastName": "Garcia",
+      "email": "fiona@example.com",
+      "phone": "666-777-8888",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "George",
+      "lastName": "Martinez",
+      "email": "george@example.com",
+      "phone": "999-000-1111",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "Hannah",
+      "lastName": "Davis",
+      "email": "hannah@example.com",
+      "phone": "222-333-4444",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "Ian",
+      "lastName": "Rodriguez",
+      "email": "ian@example.com",
+      "phone": "555-666-7777",
+      "borrowedBooks": []
+    },
+    {
+      "firstName": "Jasmine",
+      "lastName": "Hernandez",
+      "email": "jasmine@example.com",
+      "phone": "888-999-0000",
+      "borrowedBooks": []
+    }
+  ],
+  "books": [
+    {
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "publisher": "J.B. Lippincott & Co.",
+      "year": 1960
+    },
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "publisher": "Secker & Warburg",
+      "year": 1949
+    },
+    {
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "publisher": "Charles Scribner's Sons",
+      "year": 1925
+    },
+    {
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "publisher": "Little, Brown and Company",
+      "year": 1951
+    },
+    {
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "publisher": "T. Egerton",
+      "year": 1813
+    },
+    {
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "publisher": "George Allen & Unwin",
+      "year": 1937
+    },
+    {
+      "title": "Moby Dick",
+      "author": "Herman Melville",
+      "publisher": "Harper & Brothers",
+      "year": 1851
+    },
+    {
+      "title": "War and Peace",
+      "author": "Leo Tolstoy",
+      "publisher": "The Russian Messenger",
+      "year": 1869
+    },
+    {
+      "title": "Crime and Punishment",
+      "author": "Fyodor Dostoevsky",
+      "publisher": "The Russian Messenger",
+      "year": 1866
+    },
+    {
+      "title": "Brave New World",
+      "author": "Aldous Huxley",
+      "publisher": "Chatto & Windus",
+      "year": 1932
+    }
+  ],
+  "stock": [
+    {
+      "bookTitle": "To Kill a Mockingbird",
+      "quantity": 15
+    },
+    {
+      "bookTitle": "1984",
+      "quantity": 12
+    },
+    {
+      "bookTitle": "The Great Gatsby",
+      "quantity": 18
+    },
+    {
+      "bookTitle": "The Catcher in the Rye",
+      "quantity": 10
+    },
+    {
+      "bookTitle": "Pride and Prejudice",
+      "quantity": 20
+    },
+    {
+      "bookTitle": "The Hobbit",
+      "quantity": 14
+    },
+    {
+      "bookTitle": "Moby Dick",
+      "quantity": 8
+    },
+    {
+      "bookTitle": "War and Peace",
+      "quantity": 11
+    },
+    {
+      "bookTitle": "Crime and Punishment",
+      "quantity": 17
+    },
+    {
+      "bookTitle": "Brave New World",
+      "quantity": 9
+    }
+  ]
+}
