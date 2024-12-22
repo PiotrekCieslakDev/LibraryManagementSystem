@@ -22,7 +22,7 @@ public class RentalService {
     }
 
     public boolean borrowBook(Customer customer, Book book) {
-        // Sprawdź, czy książka istnieje w bazie
+        //Check if book is in the Database
         Optional<Book> foundBook = bookDAL.getAllBooks().stream()
                 .filter(b -> b.get_id().equals(book.get_id()))
                 .findFirst();
