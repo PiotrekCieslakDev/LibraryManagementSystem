@@ -7,7 +7,6 @@ import Interfaces.IBookDAL;
 import Interfaces.IBooksStockDAL;
 import Interfaces.ICustomerDAL;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public class RentalService {
@@ -32,28 +31,28 @@ public class RentalService {
             return false;
         }
 
-        // Sprawdź, czy książka jest dostępna w magazynie
+        // Check if book is in the stock db
         Optional<BooksStock> stock = booksStockDAL.getBooksStockByBooksId(book.get_id());
 
-        // Sprawdzamy, czy BooksStock istnieje i czy ilość jest większa niż 0
+        // Check if bookstock exists and quantity is more than 0
         if (stock.isEmpty() || stock.get().get_quantity() <= 0) {
             System.out.println("Book is out of stock.");
             return false;
         }
 
 
-        // Sprawdź, czy klient już wypożyczył tę książkę
+        // Check if the customer has already borrowed the book
         if (customer.get_boroowedBooks().stream()
                 .anyMatch(b -> b.get_id().equals(book.get_id()))) {
             System.out.println("Customer already borrowed this book.");
             return false;
         }
 
-        // Dodaj książkę do listy wypożyczeń klienta
+        // Add book to the customer's borowed books
         customer.get_boroowedBooks().add(book);
         customerDAL.updateCustomer(customer);
 
-        // Zmniejsz ilość książek w magazynie
+        // Decrease the book quantity
         stock.get().set_quantity(stock.get().get_quantity() - 1);
         booksStockDAL.updateBooksStock(stock.get());
 
@@ -62,17 +61,17 @@ public class RentalService {
     }
 
     public boolean returnBook(Customer customer, Book book) {
-        // Sprawdź, czy klient wypożyczył tę książkę
+        // Check if the customer borrowed the book
         boolean hasBorrowed = customer.get_boroowedBooks().removeIf(b -> b.get_id().equals(book.get_id()));
         if (!hasBorrowed) {
             System.out.println("Customer did not borrow this book.");
             return false;
         }
 
-        // Zaktualizuj dane klienta
+        // Update client's info
         customerDAL.updateCustomer(customer);
 
-        // Zwiększ ilość książek w magazynie
+        // Increase bookstock of the book
         Optional<BooksStock> stock = booksStockDAL.getBooksStockByBooksId(book.get_id());
         if (stock != null) {
             stock.get().set_quantity(stock.get().get_quantity() + 1);
