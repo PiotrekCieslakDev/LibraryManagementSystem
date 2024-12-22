@@ -5,70 +5,80 @@
       "lastName": "Smith",
       "email": "alice@example.com",
       "phone": "111-222-3333",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "787b03bb-7210-46fd-a1f6-3595ddbd5776"
     },
     {
       "firstName": "Bob",
       "lastName": "Johnson",
       "email": "bob@example.com",
       "phone": "444-555-6666",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "22b7f5f6-2160-44bd-b3c2-ca7836c478ab"
     },
     {
       "firstName": "Charlie",
       "lastName": "Williams",
       "email": "charlie@example.com",
       "phone": "777-888-9999",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "a2f4b5c6-ee9d-4c3e-be56-f1b458fba336"
     },
     {
       "firstName": "Diana",
       "lastName": "Jones",
       "email": "diana@example.com",
       "phone": "000-111-2222",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "793e6f7c-7ba8-4c3d-863f-67bcd741cdd2"
     },
     {
       "firstName": "Edward",
       "lastName": "Brown",
       "email": "edward@example.com",
       "phone": "333-444-5555",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "33a62842-735f-4f8e-abc6-8340865f5f36"
     },
     {
       "firstName": "Fiona",
       "lastName": "Garcia",
       "email": "fiona@example.com",
       "phone": "666-777-8888",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "b694614f-fc4a-4ab0-a039-fb122c295033"
     },
     {
       "firstName": "George",
       "lastName": "Martinez",
       "email": "george@example.com",
       "phone": "999-000-1111",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "b48281fc-85c1-41fc-90ff-ee7fb92bbc11"
     },
     {
       "firstName": "Hannah",
       "lastName": "Davis",
       "email": "hannah@example.com",
       "phone": "222-333-4444",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "ac02d396-a055-4d22-b6fa-3fb23f7d6a61"
     },
     {
       "firstName": "Ian",
       "lastName": "Rodriguez",
       "email": "ian@example.com",
       "phone": "555-666-7777",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "db7125d7-67b8-4352-93fb-23313f1d743b"
     },
     {
       "firstName": "Jasmine",
       "lastName": "Hernandez",
       "email": "jasmine@example.com",
       "phone": "888-999-0000",
-      "borrowedBooks": []
+      "borrowedBooks": [],
+      "id": "8f079168-399b-4ea9-bdd3-ef85e3ac2c55"
     }
   ],
   "books": [
@@ -76,102 +86,112 @@
       "title": "To Kill a Mockingbird",
       "author": "Harper Lee",
       "publisher": "J.B. Lippincott & Co.",
-      "year": 1960
+      "year": 1960,
+      "id": "cd90a075-4b3f-46ff-ab95-cc9ea746e68a"
     },
     {
       "title": "1984",
       "author": "George Orwell",
       "publisher": "Secker & Warburg",
-      "year": 1949
+      "year": 1949,
+      "id": "22d169d3-a5c6-4656-b72f-05bddfe27814"
     },
     {
       "title": "The Great Gatsby",
       "author": "F. Scott Fitzgerald",
       "publisher": "Charles Scribner's Sons",
-      "year": 1925
+      "year": 1925,
+      "id": "abf9e698-78ff-4116-b51a-c41696035a36"
     },
     {
       "title": "The Catcher in the Rye",
       "author": "J.D. Salinger",
       "publisher": "Little, Brown and Company",
-      "year": 1951
+      "year": 1951,
+      "id": "3643f4eb-ba9a-423e-a7ed-82996cee82be"
     },
     {
       "title": "Pride and Prejudice",
       "author": "Jane Austen",
       "publisher": "T. Egerton",
-      "year": 1813
+      "year": 1813,
+      "id": "40871a95-154a-4e3b-9463-31c6ddb39c29"
     },
     {
       "title": "The Hobbit",
       "author": "J.R.R. Tolkien",
       "publisher": "George Allen & Unwin",
-      "year": 1937
+      "year": 1937,
+      "id": "7f757c5a-f34b-4542-b821-d1e21baa63d4"
     },
     {
       "title": "Moby Dick",
       "author": "Herman Melville",
       "publisher": "Harper & Brothers",
-      "year": 1851
+      "year": 1851,
+      "id": "1d160eaa-961e-4661-b3ec-372b1109711c"
     },
     {
       "title": "War and Peace",
       "author": "Leo Tolstoy",
       "publisher": "The Russian Messenger",
-      "year": 1869
+      "year": 1869,
+      "id": "74941e1e-4242-438a-867f-c3d822996f93"
     },
     {
       "title": "Crime and Punishment",
       "author": "Fyodor Dostoevsky",
       "publisher": "The Russian Messenger",
-      "year": 1866
+      "year": 1866,
+      "id": "f8719eb3-174e-4520-a5f8-c8cdcd360c75"
     },
     {
       "title": "Brave New World",
       "author": "Aldous Huxley",
       "publisher": "Chatto & Windus",
-      "year": 1932
+      "year": 1932,
+      "id": "f0252efd-4618-4ec0-b44e-25ba23aee5e9"
     }
   ],
   "stock": [
     {
-      "bookTitle": "To Kill a Mockingbird",
+      "id": "2b906a4a-f143-45a9-9eac-27af28fefebf",
       "quantity": 15
     },
     {
-      "bookTitle": "1984",
+      "id": "8b9d05cc-c0a8-4d02-ba60-86aa3fd9baf8",
       "quantity": 12
     },
     {
-      "bookTitle": "The Great Gatsby",
+      "id": "8aa45dd0-7c66-4dc9-aeb1-d600e7ac7d7e",
       "quantity": 18
     },
     {
-      "bookTitle": "The Catcher in the Rye",
+      "id": "c1dd525e-cf86-4cfa-ac91-1a3fa5885736",
       "quantity": 10
     },
     {
-      "bookTitle": "Pride and Prejudice",
+      "id": "86470790-a426-430c-99dd-5d4f4a7c686e",
       "quantity": 20
     },
     {
-      "bookTitle": "The Hobbit",
+      "id": "53fc5576-7c18-4e9c-a1fe-7075289ba6d1",
       "quantity": 14
     },
     {
-      "bookTitle": "Moby Dick",
+      "id": "f97e794a-cf07-4df2-b157-12542a4c45d9",
       "quantity": 8
     },
     {
-      "bookTitle": "War and Peace",
+      "id": "a79dd343-0e26-4dc2-a454-2dccf4674528",
       "quantity": 11
     },
     {
-      "bookTitle": "Crime and Punishment",
+      "id": "6bd6f379-8de1-4b9c-8a7c-5dac412cb806",
       "quantity": 17
     },
     {
-      "bookTitle": "Brave New World",
+      "id": "f11dd03e-6f7c-402e-b5ce-fb0b45bc4575",
       "quantity": 9
     }
   ]
