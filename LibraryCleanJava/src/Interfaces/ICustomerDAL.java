@@ -3,13 +3,14 @@ package Interfaces;
 import Domains.Customer;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ICustomerDAL {
     //Retrievers
-    public Customer getCustomerById(UUID id);
+    public Optional<Customer> getCustomerById(UUID id);
     public List<Customer> getAllCustomers();
-    public Customer getCustomerByIndex(int index);
+    public Optional<Customer> getCustomerByIndex(int index);
 
     //Create
     public boolean createCustomer(Customer customer);

@@ -2,11 +2,13 @@ package Domains;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class BooksStock {
     private UUID _id;
     private Book _book;

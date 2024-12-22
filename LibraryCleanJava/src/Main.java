@@ -13,12 +13,13 @@ public class Main {
         // Initialize the DALs
         BookDAL bookDAL = new BookDAL();
         BooksStockDAL booksStockDAL = new BooksStockDAL();
-        CustomerDALJ customerDAL = new CustomerDAL();
+        CustomerDAL customerDAL = new CustomerDAL();
 
         // Initialize the services
         BookService bookService = new BookService(bookDAL);
         BooksStockService booksStockService = new BooksStockService(booksStockDAL);
         CustomerService customerService = new CustomerService(customerDAL);
+        StockCalculatingService stockCalculatingService = new StockCalculatingService(booksStockDAL, customerDAL);
 
         // Initialize books
         new BooksInitializer(bookDAL);
@@ -44,7 +45,7 @@ public class Main {
                     manageBooks(scanner, bookService, booksStockService);
                     break;
                 case 2:
-                    manageStocks(scanner, bookService, booksStockService);
+                    manageStocks(scanner, bookService, booksStockService, stockCalculatingService);
                     break;
                 case 3:
                     manageCustomers(scanner, customerService);
@@ -182,7 +183,7 @@ public class Main {
     }
 
 
-    private static void manageStocks(Scanner scanner, BookService bookService, BooksStockService booksStockService) {
+    private static void manageStocks(Scanner scanner, BookService bookService, BooksStockService booksStockService, StockCalculatingService stockCalculatingService) {
         while (true) {
             System.out.println("\nStock Management");
             System.out.println("1. Add Stock");
@@ -217,9 +218,12 @@ public class Main {
                 case 2:
                     // View All Stocks
                     System.out.println("Books Stock in the Library:");
-                    booksStockService.getAllBooksStocks().forEach(stock -> {
-                        System.out.println("Book: " + stock.get_book().GetBookToString() + " || Quantity: " + stock.get_quantity());
+                    stockCalculatingService.getBooksStockWithAvailability().forEach(stock -> {
+                        System.out.println("Book: " + stock.get_book().GetBookToString() + " || Quantity: " + stock.get_quantity() + " || Available quantity: " + stock.get_availableQuantity());
                     });
+//                    booksStockService.getAllBooksStocks().forEach(stock -> {
+//                        System.out.println("Book: " + stock.get_book().GetBookToString() + " || Quantity: " + stock.get_quantity());
+//                    });
                     break;
 
                 case 3:

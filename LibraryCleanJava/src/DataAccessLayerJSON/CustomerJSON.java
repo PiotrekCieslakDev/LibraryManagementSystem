@@ -2,13 +2,14 @@ package DataAccessLayerJSON;
 
 import Domains.Customer;
 import Interfaces.ICustomerDAL;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class CustomerJSON implements ICustomerDAL {
@@ -21,20 +22,20 @@ public class CustomerJSON implements ICustomerDAL {
     }
 
     @Override
-    public Customer getCustomerById(UUID id) {
+    public Optional<Customer> getCustomerById(UUID id) {
         return customers.stream()
                 .filter(customer -> customer.get_id().equals(id))
-                .findFirst()
-                .orElse(null);
+                .findFirst(); // Bez orElse(null), bo metoda zwraca Optional<Customer>
     }
 
     @Override
-    public Customer getCustomerByIndex(int index) {
+    public Optional<Customer> getCustomerByIndex(int index) {
         if (index >= 0 && index < customers.size()) {
-            return customers.get(index);
+            return Optional.of(customers.get(index)); // Użyj Optional.of()
         }
-        return null;
+        return Optional.empty(); // Zwróć pusty Optional dla błędnego indeksu
     }
+
 
     @Override
     public List<Customer> getAllCustomers() {
