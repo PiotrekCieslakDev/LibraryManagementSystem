@@ -20,8 +20,8 @@ public class LibraryData {
     @JsonProperty("customers")
     private List<Customer> customers;
 
-    @JsonProperty("stocks")
-    private List<BooksStock> stocks;
+    @JsonProperty("stock")
+    private List<BooksStock> stock;
 
     public List<Customer> getCustomers() {
         return customers;
@@ -39,12 +39,12 @@ public class LibraryData {
         this.books = books;
     }
 
-    public List<BooksStock> getStocks() {
-        return stocks;
+    public List<BooksStock> getStock() { // Adjusted getter
+        return stock;
     }
 
-    public void setStocks(List<BooksStock> stocks) {
-        this.stocks = stocks;
+    public void setStock(List<BooksStock> stock) { // Adjusted setter
+        this.stock = stock;
     }
 
 }

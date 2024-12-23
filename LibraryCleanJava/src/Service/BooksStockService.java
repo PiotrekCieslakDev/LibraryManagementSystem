@@ -16,6 +16,14 @@ public class BooksStockService {
 
     // Create a new book stock record
     public boolean createBooksStock(BooksStock booksStock) {
+        //        Optional<BooksStock> booksStockPresent = getBooksStockByBooksId(bookId);
+//
+//        if(booksStockPresent.isPresent()){
+//            BooksStock booksStock = booksStockPresent.get();
+//            System.out.println("This book (" + booksStock.get_book().get_title() + ") already has stock");
+//            return false;
+//        }
+        booksStock.set_bookId(booksStock.get_book().get_id());
         return booksStockDAL.createBooksStock(booksStock);
     }
 
@@ -36,13 +44,6 @@ public class BooksStockService {
     // Update an existing book stock record
     public boolean updateBooksStock(UUID bookId, BooksStock updatedBooksStock)
     {
-        Optional<BooksStock> booksStockPresent = getBooksStockByBooksId(bookId);
-
-        if(booksStockPresent.isPresent()){
-            BooksStock booksStock = booksStockPresent.get();
-            System.out.println("This book (" + booksStock.get_book().get_title() + ") already has stock");
-            return false;
-        }
         return booksStockDAL.updateBooksStock(updatedBooksStock);
     }
 

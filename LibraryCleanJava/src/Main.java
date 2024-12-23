@@ -26,16 +26,11 @@ public class Main {
         StockCalculatingService stockCalculatingService = new StockCalculatingService(booksStockDAL, customerDAL);
         RentalService rentalService = new RentalService(bookDAL, booksStockDAL, customerDAL);
 
-        // Initialize books
-        //TODO Json for that
-        new BooksInitializer(bookDAL);
 
-        // Initialize stock
-        //TODO Json for that
-        new BooksStockInitializer(bookDAL, booksStockDAL);
-
-        // Initialize customers
+        // Initialize hardcoded data
         // Use only if you use any other DB than hardcoded one
+        //new BooksInitializer(bookDAL);
+        //new BooksStockInitializer(bookDAL, booksStockDAL);
         //new CustomersInitializer(customerDAL);
 
         while (true) {
