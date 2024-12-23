@@ -42,14 +42,14 @@ public class RentalService {
 
 
         // Check if the customer has already borrowed the book
-        if (customer.get_boroowedBooks().stream()
+        if (customer.get_borrowedBooks().stream()
                 .anyMatch(b -> b.get_id().equals(book.get_id()))) {
             System.out.println("Customer already borrowed this book.");
             return false;
         }
 
         // Add book to the customer's borowed books
-        customer.get_boroowedBooks().add(book);
+        customer.get_borrowedBooks().add(book);
         customerDAL.updateCustomer(customer);
 
         // Decrease the book quantity
@@ -62,7 +62,7 @@ public class RentalService {
 
     public boolean returnBook(Customer customer, Book book) {
         // Check if the customer borrowed the book
-        boolean hasBorrowed = customer.get_boroowedBooks().removeIf(b -> b.get_id().equals(book.get_id()));
+        boolean hasBorrowed = customer.get_borrowedBooks().removeIf(b -> b.get_id().equals(book.get_id()));
         if (!hasBorrowed) {
             System.out.println("Customer did not borrow this book.");
             return false;

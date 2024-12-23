@@ -17,7 +17,7 @@ public class StockCalculatingService {
     private final ICustomerDAL customerDAL;
 
     // Constructor
-    public StockCalculatingService(BooksStockDAL booksStockDAL, CustomerDAL customerDAL) {
+    public StockCalculatingService(IBooksStockDAL booksStockDAL, ICustomerDAL customerDAL) {
         this.booksStockDAL = booksStockDAL;
         this.customerDAL = customerDAL;
     }
@@ -54,7 +54,7 @@ public class StockCalculatingService {
 
         List<Customer> allCustomers = customerDAL.getAllCustomers();
         for (Customer customer : allCustomers) {
-            rentedBooks += customer.get_boroowedBooks().size();
+            rentedBooks += customer.get_borrowedBooks().size();
         }
 
         return rentedBooks;
@@ -66,7 +66,7 @@ public class StockCalculatingService {
 
         List<Customer> allCustomers = customerDAL.getAllCustomers();
         for (Customer customer : allCustomers) {
-            for (Book borrowedBook : customer.get_boroowedBooks()) {
+            for (Book borrowedBook : customer.get_borrowedBooks()) {
                 if (borrowedBook.equals(booksStock.get_book())) {
                     rentedCount++;
                 }

@@ -1,27 +1,41 @@
 package Domains;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
+    @JsonProperty("id") // Maps the "id" field in JSON to this property
     private UUID _id;
-    private String _firstName;
-    private String _lastName;
-    private String _email;
-    private String _phone;
-    private List<Book> _boroowedBooks;
 
-    public Customer(String _firstName, String _lastName, String _email, String _phone, List<Book> _boroowedBooks) {
+    @JsonProperty("firstName") // Maps "firstName" in JSON
+    private String _firstName;
+
+    @JsonProperty("lastName") // Maps "lastName" in JSON
+    private String _lastName;
+
+    @JsonProperty("email") // Maps "email" in JSON
+    private String _email;
+
+    @JsonProperty("phone") // Maps "phone" in JSON
+    private String _phone;
+
+    @JsonProperty("borrowedBooks") // Maps "borrowedBooks" in JSON
+    private List<Book> _borrowedBooks;
+
+    public Customer(String firstName, String lastName, String email, String phone, List<Book> borrowedBooks) {
         _id = UUID.randomUUID();
-        this._firstName = _firstName;
-        this._lastName = _lastName;
-        this._email = _email;
-        this._phone = _phone;
-        this._boroowedBooks = _boroowedBooks;
+        this._firstName = firstName;
+        this._lastName = lastName;
+        this._email = email;
+        this._phone = phone;
+        this._borrowedBooks = borrowedBooks;
     }
 }

@@ -2,6 +2,7 @@ package Service;
 
 import DataAccessLayer.BookDAL;
 import Domains.Book;
+import Interfaces.IBookDAL;
 
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class BookService {
-    private final BookDAL bookDAL;
+    private final IBookDAL bookDAL;
 
-    public BookService(BookDAL bookDAL) {
+    public BookService(IBookDAL bookDAL) {
         this.bookDAL = bookDAL;
     }
 

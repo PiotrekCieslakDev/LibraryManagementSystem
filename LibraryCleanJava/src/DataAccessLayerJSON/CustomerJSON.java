@@ -2,18 +2,14 @@ package DataAccessLayerJSON;
 
 import Domains.Customer;
 import Interfaces.ICustomerDAL;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class CustomerJSON implements ICustomerDAL {
-    private final File file = new File("customers.json");
+    private final File file = new File(getClass().getClassLoader().getResource("data.json").getFile());
     private final ObjectMapper objectMapper = new ObjectMapper();
     private List<Customer> customers;
 
@@ -25,17 +21,16 @@ public class CustomerJSON implements ICustomerDAL {
     public Optional<Customer> getCustomerById(UUID id) {
         return customers.stream()
                 .filter(customer -> customer.get_id().equals(id))
-                .findFirst(); // Bez orElse(null), bo metoda zwraca Optional<Customer>
+                .findFirst();
     }
 
     @Override
     public Optional<Customer> getCustomerByIndex(int index) {
         if (index >= 0 && index < customers.size()) {
-            return Optional.of(customers.get(index)); // Użyj Optional.of()
+            return Optional.of(customers.get(index));
         }
-        return Optional.empty(); // Zwróć pusty Optional dla błędnego indeksu
+        return Optional.empty();
     }
-
 
     @Override
     public List<Customer> getAllCustomers() {
@@ -44,9 +39,9 @@ public class CustomerJSON implements ICustomerDAL {
 
     @Override
     public boolean createCustomer(Customer customer) {
-        if (getCustomerById(customer.get_id()) == null) {
+        if (customers.stream().noneMatch(c -> c.get_id().equals(customer.get_id()))) {
             customers.add(customer);
-            return saveCustomersToFile();
+            return saveToFile();
         }
         return false;
     }
@@ -56,7 +51,7 @@ public class CustomerJSON implements ICustomerDAL {
         for (int i = 0; i < customers.size(); i++) {
             if (customers.get(i).get_id().equals(customer.get_id())) {
                 customers.set(i, customer);
-                return saveCustomersToFile();
+                return saveToFile();
             }
         }
         return false;
@@ -65,32 +60,36 @@ public class CustomerJSON implements ICustomerDAL {
     @Override
     public boolean deleteCustomer(UUID id) {
         if (customers.removeIf(customer -> customer.get_id().equals(id))) {
-            return saveCustomersToFile();
+            return saveToFile();
         }
         return false;
     }
 
-    // Prywatna metoda do ładowania klientów z pliku JSON
+    // Private method to load all customers from JSON
     private List<Customer> loadCustomersFromFile() {
         if (!file.exists()) {
             return new ArrayList<>();
         }
         try {
-            return objectMapper.readValue(file, new TypeReference<List<Customer>>() {});
+            LibraryData libraryData = objectMapper.readValue(file, LibraryData.class);
+            return libraryData.getCustomers();
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
-    // Prywatna metoda do zapisywania klientów do pliku JSON
-    private boolean saveCustomersToFile() {
+    // Private method to save all customers back to JSON
+    private boolean saveToFile() {
         try {
-            objectMapper.writeValue(file, customers);
+            LibraryData libraryData = objectMapper.readValue(file, LibraryData.class);
+            libraryData.setCustomers(customers);  // Make sure you're updating the customers list
+            objectMapper.writeValue(file, libraryData);  // Write the updated LibraryData back to the file
             return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 }

@@ -1,15 +1,26 @@
 package Domains;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Book {
+    @JsonProperty("id") // Maps "id" in JSON to this field
     private UUID _id;
+
+    @JsonProperty("title") // Maps "title" in JSON to this field
     private String _title;
+
+    @JsonProperty("author") // Maps "author" in JSON to this field
     private String _author;
+
+    @JsonProperty("publisher") // Maps "publisher" in JSON to this field
     private String _publisher;
+
+    @JsonProperty("year") // Maps "year" in JSON to this field
     private int _year;
 
     public Book(String title, String author, String publisher, int year) {

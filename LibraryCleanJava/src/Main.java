@@ -1,6 +1,10 @@
 import DataAccessLayer.*;
 import DataAccessLayerJSON.*;
+import DependencyInitializerHelper.DependencyHelper;
 import InitializeHelper.*;
+import Interfaces.IBookDAL;
+import Interfaces.IBooksStockDAL;
+import Interfaces.ICustomerDAL;
 import Service.*;
 import Domains.*;
 
@@ -11,23 +15,27 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         // Initialize the DALs
-        BookDAL bookDAL = new BookDAL();
-        BooksStockDAL booksStockDAL = new BooksStockDAL();
-        CustomerDAL customerDAL = new CustomerDAL();
+        IBookDAL bookDAL = DependencyHelper.bookDAL;
+        IBooksStockDAL booksStockDAL = DependencyHelper.booksStockDAL;
+        ICustomerDAL customerDAL = DependencyHelper.customerDAL;
 
         // Initialize the services
         BookService bookService = new BookService(bookDAL);
         BooksStockService booksStockService = new BooksStockService(booksStockDAL);
         CustomerService customerService = new CustomerService(customerDAL);
         StockCalculatingService stockCalculatingService = new StockCalculatingService(booksStockDAL, customerDAL);
+        RentalService rentalService = new RentalService(bookDAL, booksStockDAL, customerDAL);
 
         // Initialize books
+        //TODO Json for that
         new BooksInitializer(bookDAL);
 
         // Initialize stock
+        //TODO Json for that
         new BooksStockInitializer(bookDAL, booksStockDAL);
 
         // Initialize customers
+        // Use only if you use any other DB than hardcoded one
         //new CustomersInitializer(customerDAL);
 
         while (true) {
@@ -35,7 +43,8 @@ public class Main {
             System.out.println("1. Manage Books");
             System.out.println("2. Manage Stocks");
             System.out.println("3. Manage Customers");
-            System.out.println("4. Exit");
+            System.out.println("4. Rental Management System");
+            System.out.println("5. Exit");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -51,6 +60,9 @@ public class Main {
                     manageCustomers(scanner, customerService);
                     break;
                 case 4:
+                    rentalManagementSystem(scanner, rentalService, customerService, bookService);
+                    break;
+                case 5:
                     System.out.println("Exiting the application.");
                     return;
                 default:
@@ -312,7 +324,7 @@ public class Main {
 
                     Customer newCustomer = new Customer(firstName, lastName, email, phone, new ArrayList<>());
                     customerService.createCustomer(newCustomer);
-                    System.out.println("Customer added successfully.");
+                    System.out.println("Customer added successfully. ID: " + newCustomer.get_id() );
                     break;
 
                 case 2:
@@ -407,6 +419,136 @@ public class Main {
                     break;
 
                 case 6:
+                    return; // Back to main menu
+
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+
+    private static void rentalManagementSystem(Scanner scanner, RentalService rentalService, CustomerService customerService, BookService bookService) {
+        while (true) {
+            System.out.println("\nRental Management");
+            System.out.println("1. Rent a Book");
+            System.out.println("2. Return a Book");
+            System.out.println("3. View Borrowed Books by Customer");
+            System.out.println("4. Back");
+            System.out.print("Choose an option: ");
+            int option = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (option) {
+                case 1:
+                    // Rent a Book
+                    System.out.print("Enter Customer ID: ");
+                    UUID customerId;
+                    try {
+                        customerId = UUID.fromString(scanner.nextLine());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid Customer ID format.");
+                        break;
+                    }
+
+                    Optional<Customer> optionalCustomer = customerService.getCustomerById(customerId);
+                    if (optionalCustomer.isEmpty()) {
+                        System.out.println("Customer not found.");
+                        break;
+                    }
+                    Customer customer = optionalCustomer.get();
+
+                    System.out.print("Enter Book ID: ");
+                    UUID bookId;
+                    try {
+                        bookId = UUID.fromString(scanner.nextLine());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid Book ID format.");
+                        break;
+                    }
+
+                    Optional<Book> optionalBook = bookService.getBookById(bookId);
+                    if (optionalBook.isEmpty()) {
+                        System.out.println("Book not found.");
+                        break;
+                    }
+                    Book book = optionalBook.get();
+
+                    boolean rentSuccess = rentalService.borrowBook(customer, book);
+                    if (rentSuccess) {
+                        System.out.println("Book rented successfully.");
+                    } else {
+                        System.out.println("Failed to rent book.");
+                    }
+                    break;
+
+                case 2:
+                    // Return a Book
+                    System.out.print("Enter Customer ID: ");
+                    try {
+                        customerId = UUID.fromString(scanner.nextLine());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid Customer ID format.");
+                        break;
+                    }
+
+                    optionalCustomer = customerService.getCustomerById(customerId);
+                    if (optionalCustomer.isEmpty()) {
+                        System.out.println("Customer not found.");
+                        break;
+                    }
+                    customer = optionalCustomer.get();
+
+                    System.out.print("Enter Book ID: ");
+                    try {
+                        bookId = UUID.fromString(scanner.nextLine());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid Book ID format.");
+                        break;
+                    }
+
+                    optionalBook = bookService.getBookById(bookId);
+                    if (optionalBook.isEmpty()) {
+                        System.out.println("Book not found.");
+                        break;
+                    }
+                    book = optionalBook.get();
+
+                    boolean returnSuccess = rentalService.returnBook(customer, book);
+                    if (returnSuccess) {
+                        System.out.println("Book returned successfully.");
+                    } else {
+                        System.out.println("Failed to return book.");
+                    }
+                    break;
+
+                case 3:
+                    // View Borrowed Books by Customer
+                    System.out.print("Enter Customer ID: ");
+                    try {
+                        customerId = UUID.fromString(scanner.nextLine());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid Customer ID format.");
+                        break;
+                    }
+
+                    optionalCustomer = customerService.getCustomerById(customerId);
+                    if (optionalCustomer.isEmpty()) {
+                        System.out.println("Customer not found.");
+                        break;
+                    }
+                    customer = optionalCustomer.get();
+
+                    System.out.println("Borrowed Books:");
+                    if (customer.get_borrowedBooks().isEmpty()) {
+                        System.out.println("No borrowed books found.");
+                    } else {
+                        customer.get_borrowedBooks().forEach(bookItem ->
+                                System.out.println(bookItem.GetBookToString()));
+                    }
+                    break;
+
+                case 4:
                     return; // Back to main menu
 
                 default:
