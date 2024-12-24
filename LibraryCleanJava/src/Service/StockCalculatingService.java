@@ -1,7 +1,5 @@
 package Service;
 
-import DataAccessLayer.BooksStockDAL;
-import DataAccessLayer.CustomerDAL;
 import DomainHelpers.BooksStockWithAvailability;
 import Domains.Book;
 import Domains.BooksStock;

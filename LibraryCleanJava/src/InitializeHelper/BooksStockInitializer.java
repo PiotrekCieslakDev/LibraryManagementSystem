@@ -1,11 +1,9 @@
 package InitializeHelper;
 
-import Domains.Book;
 import Domains.BooksStock;
 import Interfaces.IBookDAL;
 import Interfaces.IBooksStockDAL;
 
-import java.util.List;
 import java.util.Random;
 
 public class BooksStockInitializer {

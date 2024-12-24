@@ -3,7 +3,7 @@ package InitializeHelper;
 import Domains.Book;
 import Interfaces.IBookDAL;
 
-//Class for initializng hard-coded data in case of not using real persistence DB
+//Class for initializing hard-coded data in case of not using real persistence DB
 public class BooksInitializer {
     //Access for Database
     private final IBookDAL _bookDAL;

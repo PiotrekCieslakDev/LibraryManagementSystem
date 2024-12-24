@@ -1,6 +1,5 @@
 package Interfaces;
 
-import Domains.Book;
 import Domains.BooksStock;
 
 import java.util.List;
