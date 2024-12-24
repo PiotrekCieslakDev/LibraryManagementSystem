@@ -7,7 +7,10 @@ import Interfaces.IBookDAL;
 import Interfaces.IBooksStockDAL;
 import Interfaces.ICustomerDAL;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class RentalService {
     private final IBookDAL bookDAL;
@@ -40,7 +43,6 @@ public class RentalService {
             return false;
         }
 
-
         // Check if the customer has already borrowed the book
         if (customer.get_borrowedBooks().stream()
                 .anyMatch(b -> b.get_id().equals(book.get_id()))) {
@@ -53,8 +55,8 @@ public class RentalService {
         customerDAL.updateCustomer(customer);
 
         // Decrease the book quantity
-        stock.get().set_quantity(stock.get().get_quantity() - 1);
-        booksStockDAL.updateBooksStock(stock.get());
+//        stock.get().set_quantity(stock.get().get_quantity() - 1);
+//        booksStockDAL.updateBooksStock(stock.get());
 
         System.out.println("Book successfully borrowed.");
         return true;
@@ -71,17 +73,28 @@ public class RentalService {
         // Update client's info
         customerDAL.updateCustomer(customer);
 
-        // Increase bookstock of the book
-        Optional<BooksStock> stock = booksStockDAL.getBooksStockByBooksId(book.get_id());
-        if (stock != null) {
-            stock.get().set_quantity(stock.get().get_quantity() + 1);
-            booksStockDAL.updateBooksStock(stock.get());
-        } else {
-            System.out.println("Error: Stock record not found.");
-            return false;
-        }
+        //Increase bookstock of the book
+//        Optional<BooksStock> stock = booksStockDAL.getBooksStockByBooksId(book.get_id());
+//        if (stock != null) {
+//            stock.get().set_quantity(stock.get().get_quantity() + 1);
+//            booksStockDAL.updateBooksStock(stock.get());
+//        } else {
+//            System.out.println("Error: Stock record not found.");
+//            return false;
+//        }
 
         System.out.println("Book successfully returned.");
         return true;
+    }
+
+    public List<Customer> GetCustomersWhoBorrowedTheBookByBookId(UUID bookId) {
+        List<Customer> customersWhoBorrowedTheBook = new ArrayList<Customer>();
+
+        for(Customer customer : customerDAL.getAllCustomers()){
+            if(customer.get_borrowedBooks().stream().anyMatch(b -> b.get_id().equals(bookId))){
+                customersWhoBorrowedTheBook.add(customer);
+            }
+        }
+        return customersWhoBorrowedTheBook;
     }
 }

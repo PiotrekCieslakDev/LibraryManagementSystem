@@ -42,7 +42,12 @@ public class Main {
             System.out.println("5. Exit");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            try{
+                scanner.nextLine();  // Consume newline
+            }
+            catch(Exception e){
+                System.out.println("Enter a valid option! (number)");
+            }
 
             switch (option) {
                 case 1:
@@ -429,7 +434,8 @@ public class Main {
             System.out.println("1. Rent a Book");
             System.out.println("2. Return a Book");
             System.out.println("3. View Borrowed Books by Customer");
-            System.out.println("4. Back");
+            System.out.println("4. View Customer who borrowed specific Books");
+            System.out.println("5. Back");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -544,6 +550,30 @@ public class Main {
                     break;
 
                 case 4:
+                    // View Customers Who Borrowed a Specific Book by Book ID
+                    System.out.print("Enter Book ID: ");
+                    UUID bookIdToFindCustomers;
+                    try {
+                        bookIdToFindCustomers = UUID.fromString(scanner.nextLine());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid Book ID format.");
+                        break;
+                    }
+
+                    // Call the method to get the customers who borrowed this book
+                    List<Customer> customersWhoBorrowedTheBook = rentalService.GetCustomersWhoBorrowedTheBookByBookId(bookIdToFindCustomers);
+                    if (customersWhoBorrowedTheBook.isEmpty()) {
+                        System.out.println("No customers found who have borrowed this book.");
+                    } else {
+                        System.out.println("Customers who borrowed this book:");
+                        customersWhoBorrowedTheBook.forEach(customerItem -> {
+                            System.out.println(customerItem.getStructuredDataAboutCustomerForTerminalPrint());
+                            //System.out.println(customerItem.get_firstName() + " " + customerItem.get_lastName());
+                        });
+                    }
+                    break;
+
+                case 5:
                     return; // Back to main menu
 
                 default:
