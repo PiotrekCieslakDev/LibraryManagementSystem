@@ -28,7 +28,7 @@ public class Main {
 
 
         // Initialize hardcoded data
-        // Use only if you use any other DB than hardcoded one
+        //Warning! Use only if you do not use any other DB than hardcoded one
         //new BooksInitializer(bookDAL);
         //new BooksStockInitializer(bookDAL, booksStockDAL);
         //new CustomersInitializer(customerDAL);

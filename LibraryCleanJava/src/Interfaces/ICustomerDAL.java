@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+//Interface for customer database access, all methods are inherently abstract as it is an interface
 public interface ICustomerDAL {
     //Retrievers
     public Optional<Customer> getCustomerById(UUID id);
