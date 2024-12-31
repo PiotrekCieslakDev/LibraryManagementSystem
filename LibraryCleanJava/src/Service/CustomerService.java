@@ -37,7 +37,7 @@ public class CustomerService {
         return customerDAL.deleteCustomer(id);
     }
 
-    // New search method
+    // Flexible search method for any customer parameter
     public List<Customer> searchCustomers(Map<String, String> searchParams) {
         List<Customer> allCustomers = customerDAL.getAllCustomers();
         List<Customer> filteredCustomers = new ArrayList<>();

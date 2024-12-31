@@ -1,8 +1,5 @@
 package DependencyInitializerHelper;
 
-import DataAccessLayer.BookDAL;
-import DataAccessLayer.BooksStockDAL;
-import DataAccessLayer.CustomerDAL;
 import DataAccessLayerJSON.BookJSON;
 import DataAccessLayerJSON.BooksStockJSON;
 import DataAccessLayerJSON.CustomerJSON;

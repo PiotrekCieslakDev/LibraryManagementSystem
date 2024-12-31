@@ -1,5 +1,6 @@
 package Domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,5 +38,10 @@ public class Customer {
         this._email = email;
         this._phone = phone;
         this._borrowedBooks = borrowedBooks;
+    }
+
+    @JsonIgnore
+    public String getStructuredDataAboutCustomerForTerminalPrint(){
+        return "Customer: " + _firstName + " " + _lastName + " " + _email + " " + _phone + " " + _id;
     }
 }

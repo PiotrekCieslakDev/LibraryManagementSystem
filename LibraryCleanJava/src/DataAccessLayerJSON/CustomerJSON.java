@@ -83,7 +83,7 @@ public class CustomerJSON implements ICustomerDAL {
     private boolean saveToFile() {
         try {
             LibraryData libraryData = objectMapper.readValue(file, LibraryData.class);
-            libraryData.setCustomers(customers);  // Make sure you're updating the customers list
+            libraryData.setCustomers(customers);
             objectMapper.writeValue(file, libraryData);  // Write the updated LibraryData back to the file
             return true;
         } catch (IOException e) {

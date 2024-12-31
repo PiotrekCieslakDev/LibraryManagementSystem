@@ -19,7 +19,7 @@ public class CustomerDAL implements ICustomerDAL {
     @Override
     public Optional<Customer> getCustomerById(UUID id) {
         if (customers == null || customers.isEmpty()) {
-            return Optional.empty(); // Jeśli lista jest null lub pusta, zwróć pusty Optional
+            return Optional.empty();
         }
         return customers.stream()
                 .filter(customer -> customer.get_id().equals(id))
@@ -36,7 +36,7 @@ public class CustomerDAL implements ICustomerDAL {
     @Override
     public Optional<Customer> getCustomerByIndex(int index) {
         if (customers == null || index < 0 || index >= customers.size()) {
-            return Optional.empty(); // Jeśli lista jest null, indeks jest ujemny lub poza zakresem, zwróć pusty Optional
+            return Optional.empty();
         }
         return Optional.of(customers.get(index));
     }

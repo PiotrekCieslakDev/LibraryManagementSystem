@@ -3,7 +3,9 @@ package InitializeHelper;
 import Domains.Book;
 import Interfaces.IBookDAL;
 
+//Class for initializing hard-coded data in case of not using real persistence DB
 public class BooksInitializer {
+    //Access for Database
     private final IBookDAL _bookDAL;
 
     public BooksInitializer(IBookDAL bookDAL) {
@@ -11,6 +13,7 @@ public class BooksInitializer {
         initializeBooks();
     }
 
+    //Initializing the books
     private void initializeBooks() {
         _bookDAL.createBook(new Book("To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 1960));
         _bookDAL.createBook(new Book("1984", "George Orwell", "Secker & Warburg", 1949));
