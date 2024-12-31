@@ -1,7 +1,4 @@
-import DataAccessLayer.*;
-import DataAccessLayerJSON.*;
 import DependencyInitializerHelper.DependencyHelper;
-import InitializeHelper.*;
 import Interfaces.IBookDAL;
 import Interfaces.IBooksStockDAL;
 import Interfaces.ICustomerDAL;
@@ -10,7 +7,7 @@ import Domains.*;
 
 import java.util.*;
 
-public class Main {
+public class Piotr_Cielsak_123794_nst_s1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -39,6 +36,7 @@ public class Main {
         //Open loop for the entire application
         //Start main menu
         while (true) {
+            System.out.println("Library Management system by Piotr Cieslak 123794 nst s1");
             System.out.println("Library Management System");
             System.out.println("1. Manage Books");
             System.out.println("2. Manage Stocks");
