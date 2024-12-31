@@ -14,6 +14,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        //READ BEFORE USING THIS CLASS
+        //Exception handlers and annotation checks are not implemented in this class! They are implemented in the deeper layers in the name of reusability
+
         // Initialize the DALs
         IBookDAL bookDAL = DependencyHelper.bookDAL;
         IBooksStockDAL booksStockDAL = DependencyHelper.booksStockDAL;
@@ -33,6 +36,8 @@ public class Main {
         //new BooksStockInitializer(bookDAL, booksStockDAL);
         //new CustomersInitializer(customerDAL);
 
+        //Open loop for the entire application
+        //Start main menu
         while (true) {
             System.out.println("Library Management System");
             System.out.println("1. Manage Books");
@@ -41,9 +46,11 @@ public class Main {
             System.out.println("4. Rental Management System");
             System.out.println("5. Exit");
             System.out.print("Choose an option: ");
+            //Open scanner for consuming user input
             int option = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            scanner.nextLine();  // Consume new line
 
+            //Open switchbox for main menu options
             switch (option) {
                 case 1:
                     manageBooks(scanner, bookService, booksStockService);
@@ -66,6 +73,7 @@ public class Main {
         }
     }
 
+    //Method that implements managing books option into user interface
     private static void manageBooks(Scanner scanner, BookService bookService, BooksStockService booksStockService) {
         while (true) {
             System.out.println("\nBook Management");
@@ -79,9 +87,10 @@ public class Main {
             int option = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
+            //Switch options for managing books
             switch (option) {
                 case 1:
-                    // Add Book
+                    // Add Book method
                     System.out.print("Enter title: ");
                     String title = scanner.nextLine();
                     System.out.print("Enter author: ");
@@ -92,18 +101,20 @@ public class Main {
                     int year = scanner.nextInt();
                     scanner.nextLine(); // Consume newline
 
+                    //method for creating book into the system
                     bookService.createBook(title, author, publisher, year);
                     System.out.println("Book added successfully.");
                     break;
 
                 case 2:
-                    // View All Books
+                    // View All Books method
                     System.out.println("Books in the Library:");
+                    //method for retrieving all books
                     bookService.getAllBooks().forEach(book -> System.out.println(book.GetBookToString()));
                     break;
 
                 case 3:
-                    // Update Book
+                    // Update Book method
                     System.out.print("Enter the ID of the book to update: ");
                     UUID bookIdToUpdate = UUID.fromString(scanner.nextLine());
                     Optional<Book> optionalBook = bookService.getBookById(bookIdToUpdate);
@@ -119,6 +130,7 @@ public class Main {
                         int newYear = scanner.nextInt();
                         scanner.nextLine(); // Consume newline
 
+                        //method for updating the given book
                         bookService.updateBook(bookIdToUpdate, newTitle, newAuthor, newPublisher, newYear);
                         System.out.println("Book updated successfully.");
                     } else {
@@ -127,7 +139,7 @@ public class Main {
                     break;
 
                 case 4:
-                    // Delete Book
+                    // Delete Book method
                     System.out.print("Enter the ID of the book to delete: ");
                     UUID bookIdToDelete = UUID.fromString(scanner.nextLine());
                     if (bookService.deleteBook(bookIdToDelete)) {
@@ -138,7 +150,7 @@ public class Main {
                     break;
 
                 case 5:
-                    // Search Books
+                    // Search Books method
                     System.out.println("Enter search parameters (leave blank to skip): ");
                     System.out.print("Title: ");
                     String searchTitle = scanner.nextLine();
