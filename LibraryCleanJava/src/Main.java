@@ -1,4 +1,7 @@
+import DataAccessLayer.*;
+import DataAccessLayerJSON.*;
 import DependencyInitializerHelper.DependencyHelper;
+import InitializeHelper.*;
 import Interfaces.IBookDAL;
 import Interfaces.IBooksStockDAL;
 import Interfaces.ICustomerDAL;
@@ -21,14 +24,14 @@ public class Main {
 
         // Initialize the services
         BookService bookService = new BookService(bookDAL);
-        BooksStockService booksStockService = new BooksStockService(booksStockDAL);
+        BooksStockService booksStockService = new BooksStockService(booksStockDAL, bookDAL, customerDAL);
         CustomerService customerService = new CustomerService(customerDAL);
         StockCalculatingService stockCalculatingService = new StockCalculatingService(booksStockDAL, customerDAL);
         RentalService rentalService = new RentalService(bookDAL, booksStockDAL, customerDAL);
 
 
         // Initialize hardcoded data
-        //Warning! Use only if you do not use any other DB than hardcoded one
+        // Use only if you use any other DB than hardcoded one
         //new BooksInitializer(bookDAL);
         //new BooksStockInitializer(bookDAL, booksStockDAL);
         //new CustomersInitializer(customerDAL);
@@ -45,12 +48,7 @@ public class Main {
             System.out.print("Choose an option: ");
             //Open scanner for consuming user input
             int option = scanner.nextInt();
-            catch(Exception e){
-                System.out.println("Enter a valid option! (number)");
-            }
-            }
-                scanner.nextLine();  // Consume newline
-            try{
+            scanner.nextLine();  // Consume new line
 
             //Open switchbox for main menu options
             switch (option) {
@@ -212,7 +210,8 @@ public class Main {
             System.out.println("3. Update Stock");
             System.out.println("4. Delete Stock");
             System.out.println("5. Search Stock by Book ID");
-            System.out.println("6. Back");
+            System.out.println("6. Search book's renters by book ID");
+            System.out.println("7. Back");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -228,6 +227,7 @@ public class Main {
 
                     Optional<Book> optionalBook = bookService.getBookById(bookId);
                     if (optionalBook.isPresent()) {
+                        System.out.println(optionalBook.get().GetBookToString());
                         BooksStock newStock = new BooksStock(optionalBook.get(), quantity);
                         booksStockService.createBooksStock(newStock);
                         System.out.println("Stock added successfully.");
@@ -298,6 +298,20 @@ public class Main {
                     break;
 
                 case 6:
+                    // Search books renters by book ID
+                    System.out.println("Enter book ID:");
+                    UUID searchBookIdForRentersSearch = UUID.fromString(scanner.nextLine());
+                    List<Customer> foundRenters = booksStockService.getRentersByBookId(searchBookIdForRentersSearch);
+                    if (foundRenters.isEmpty()) {
+                        System.out.println("No renters found for the specified Book ID.");
+                    } else {
+                        List<Customer> stock = foundRenters.stream().toList();
+                        for (Customer customer : foundRenters) {
+                            System.out.println("Found cusotmers who rented this book: " +  customer.getStructuredDataAboutCustomerForTerminalPrint());
+                        }
+                    }
+                    break;
+                case 7:
                     return; // Back to main menu
 
                 default:
@@ -443,8 +457,7 @@ public class Main {
             System.out.println("1. Rent a Book");
             System.out.println("2. Return a Book");
             System.out.println("3. View Borrowed Books by Customer");
-            System.out.println("4. View Customer who borrowed specific Books");
-            System.out.println("5. Back");
+            System.out.println("4. Back");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -559,30 +572,6 @@ public class Main {
                     break;
 
                 case 4:
-                    // View Customers Who Borrowed a Specific Book by Book ID
-                    System.out.print("Enter Book ID: ");
-                    UUID bookIdToFindCustomers;
-                    try {
-                        bookIdToFindCustomers = UUID.fromString(scanner.nextLine());
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid Book ID format.");
-                        break;
-                    }
-
-                    // Call the method to get the customers who borrowed this book
-                    List<Customer> customersWhoBorrowedTheBook = rentalService.GetCustomersWhoBorrowedTheBookByBookId(bookIdToFindCustomers);
-                    if (customersWhoBorrowedTheBook.isEmpty()) {
-                        System.out.println("No customers found who have borrowed this book.");
-                    } else {
-                        System.out.println("Customers who borrowed this book:");
-                        customersWhoBorrowedTheBook.forEach(customerItem -> {
-                            System.out.println(customerItem.getStructuredDataAboutCustomerForTerminalPrint());
-                            //System.out.println(customerItem.get_firstName() + " " + customerItem.get_lastName());
-                        });
-                    }
-                    break;
-
-                case 5:
                     return; // Back to main menu
 
                 default:
